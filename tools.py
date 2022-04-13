@@ -22,6 +22,10 @@ root.title("SEPATools")
 copia = ""
 
 
+def apagar():
+    text.delete("1.0", END)
+
+
 def copiar():
     global copia
     pyperclip.copy(copia)
@@ -200,7 +204,7 @@ def arquivoCSV():
         arquivo.write(bytes(copia, "utf-8"))
         arquivo.close()
 
-        pergunta = messagebox.showinfo("Concluído", "Abrir arquivo?")
+        pergunta = messagebox.askyesno("Concluído", "Abrir arquivo?")
 
         if pergunta:
             os.startfile(saida)
@@ -241,5 +245,8 @@ text.pack(pady=5, padx=5)
 
 button_copiar = Button(root, text="Copiar", width=10, height=2, command=copiar)
 button_copiar.pack(side=LEFT, padx=5, pady=5)
+
+button_copiar = Button(root, text="Apagar", width=10, height=2, command=apagar)
+button_copiar.pack(side=RIGHT, padx=5, pady=5)
 
 root.mainloop()
