@@ -16,7 +16,7 @@ from PIL import Image
 root = Tk()
 
 janela_width = 500
-janela_height = 500
+janela_height = 510
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -36,16 +36,13 @@ def comparador():
     comparador_janela.resizable(False, False)
     comparador_janela.iconbitmap("icones/compare.ico")
     comparador_janela.title("Comparador")
-    comparador_janela.attributes("-topmost", True)
 
     def limpar(texto, campo):
         try:
             Stringio = StringIO(texto)
 
             df = pd.read_csv(Stringio)
-
             df.sort_values(by=["Patrimônio"], inplace=True)
-
             df["Patrimônio"] = df["Patrimônio"].apply(lambda x: '{0:0>6}'.format(x))
 
             df1 = df[["Patrimônio"]]
@@ -53,9 +50,7 @@ def comparador():
             df2 = df1.to_csv(header=None, index=False)
 
             campo.delete("1.0", END)
-
             campo.insert("1.0", str(df2).replace("\r", ""))
-
         except Exception as e:
             erro(e)
 
@@ -76,47 +71,47 @@ def comparador():
         for element in missing:
             text_relacao_3.insert("1.0", element + "\n")
 
-    frame_master = Frame(comparador_janela)
-    frame_master.pack()
-
-    frame_1 = Frame(frame_master)
-    frame_1.pack(side=LEFT)
+    frame_1 = Frame(comparador_janela)
+    frame_1.pack(side=LEFT, padx=2.5)
 
     text_relacao_1 = Text(frame_1, width=20, height=28)
     text_relacao_1.pack()
+    text_relacao_1.insert("1.0", "Relação a ser comparada")
+    text_relacao_1.bind("<FocusIn>", lambda _: text_relacao_1.delete("1.0", END))
 
     button_limpar_1 = Button(frame_1, text="Limpar", width=10, height=2,
                              command=lambda: limpar(text_relacao_1.get("1.0", END), text_relacao_1))
     button_limpar_1.pack(side=LEFT, pady=5)
 
-    frame_2 = Frame(frame_master)
+    frame_2 = Frame(comparador_janela)
     frame_2.pack(side=LEFT)
 
     text_relacao_2 = Text(frame_2, width=20, height=28)
     text_relacao_2.pack()
+    text_relacao_2.insert("1.0", "Relação que será usada para comparação")
+    text_relacao_2.bind("<FocusIn>", lambda _: text_relacao_2.delete("1.0", END))
 
     button_limpar_2 = Button(frame_2, text="Limpar", width=10, height=2,
                              command=lambda: limpar(text_relacao_2.get("1.0", END), text_relacao_2))
     button_limpar_2.pack(side=LEFT, pady=5)
 
-    frame_3 = Frame(frame_master)
+    frame_3 = Frame(comparador_janela)
     frame_3.pack(side=LEFT)
 
     text_relacao_3 = Text(frame_3, width=20, height=28)
     text_relacao_3.pack()
+    text_relacao_3.insert("1.0", "Resultado")
+    text_relacao_3.bind("<FocusIn>", lambda _: text_relacao_3.delete("1.0", END))
 
     button_comparar = Button(frame_3, text="Comparar", width=10, height=2,
                              command=lambda: comparar(text_relacao_1.get("1.0", END), text_relacao_2.get("1.0", END)))
     button_comparar.pack(side=LEFT, pady=5)
 
-    button_limpar_3 = Button(frame_3, text="Para CSV", width=10, height=2)
-    button_limpar_3.pack(side=RIGHT, pady=5)
+    salvar_csv_button = Button(frame_3, text="Para CSV", width=10, height=2,
+                               command=lambda: multithreading(arquivoCSV(text_relacao_3.get("1.0", END))))
+    salvar_csv_button.pack(side=RIGHT, pady=5)
 
     comparador_janela.mainloop()
-
-
-def apagar():
-    text.delete("1.0", END)
 
 
 def erro(e):
@@ -147,7 +142,6 @@ def apenasGerarQRCode():
         image = cv2.imread("QRcode.jpeg")
         cv2.imshow("QR code", image)
         cv2.waitKey(0)
-
     except Exception as e:
         erro(e)
 
@@ -167,7 +161,6 @@ def gerarQrCodeSemBrasao():
 
         if pergunta:
             os.startfile(salvar)
-
     except Exception as e:
         erro(e)
 
@@ -184,11 +177,9 @@ def gerarQRCodeComBrasao():
 
         brasao = Image.open('icones/brasao.ico')
         brasao.thumbnail((60, 60))
-
         brasaopos = ((img.size[0] - brasao.size[0]) // 2, (img.size[1] - brasao.size[1]) // 2)
 
         img.paste(brasao, brasaopos)
-
         img.save(salvar)
 
         pergunta = messagebox.askyesno("QR code criado", "Abrir o arquivo?")
@@ -204,9 +195,7 @@ def apenasPatrimonio():
         Stringio = StringIO(text.get("1.0", END))
 
         df = pd.read_csv(Stringio)
-
         df.sort_values(by=["Patrimônio"], inplace=True)
-
         df["Patrimônio"] = df["Patrimônio"].apply(lambda x: '{0:0>6}'.format(x))
 
         df1 = df[["Patrimônio"]]
@@ -216,11 +205,9 @@ def apenasPatrimonio():
         resultado = str(df2).replace("\r", "")
 
         text.delete("1.0", END)
-
         text.insert("1.0", resultado)
 
         pyperclip.copy(resultado)
-
     except Exception as e:
         erro(e)
 
@@ -230,13 +217,10 @@ def materialPatrimonio():
         Stringio = StringIO(text.get("1.0", END))
 
         df = pd.read_csv(Stringio, sep=",")
-
         df.sort_values(by=["Patrimônio"], inplace=True)
-
         df["Material"] = df["Material"].str.replace("\d+", "").str.replace(" - ", "").str.replace(".",
                                                                                                   "").replace(
             "-", "").str[:30]
-
         df["Patrimônio"] = df["Patrimônio"].apply(lambda x: '{0:0>6}'.format(x))
 
         df1 = df[["Material", "Patrimônio"]]
@@ -246,7 +230,6 @@ def materialPatrimonio():
         resultado = str(df2).replace("\r", "")
 
         text.delete("1.0", END)
-
         text.insert("1.0", resultado)
 
         pyperclip.copy(str(df2))
@@ -259,9 +242,7 @@ def marcaPatrimonio():
         Stringio = StringIO(text.get("1.0", END))
 
         df = pd.read_csv(Stringio, sep=",")
-
         df.sort_values(by=["Patrimônio"], inplace=True)
-
         df["Patrimônio"] = df["Patrimônio"].apply(lambda x: '{0:0>6}'.format(x))
 
         df1 = df[["Marca", "Patrimônio"]]
@@ -271,7 +252,6 @@ def marcaPatrimonio():
         resultado = str(df2).replace("\r", "")
 
         text.delete("1.0", END)
-
         text.insert("1.0", resultado)
 
         pyperclip.copy(str(df2))
@@ -279,19 +259,18 @@ def marcaPatrimonio():
         erro(e)
 
 
-def arquivoCSV():
+def arquivoCSV(texto):
     try:
         saida = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("Arquivo CSV", "*.csv")])
 
         arquivo = open(saida, "wb")
-        arquivo.write(bytes(text.get("1.0", END), "utf-8"))
+        arquivo.write(bytes(texto, "utf-8"))
         arquivo.close()
 
         pergunta = messagebox.askyesno("Concluído", "Abrir arquivo?")
 
         if pergunta:
             os.startfile(saida)
-
     except Exception as e:
         erro(e)
 
@@ -317,7 +296,7 @@ menubar.add_cascade(label="Padronizar", menu=menu_2)
 menu_3 = Menu(menubar, tearoff=0)
 
 menu_3.add_command(label="Abrir pastebin.com", command=lambda: multithreading(pasteBin))
-menu_3.add_command(label="Salvar para um arquivo CSV", command=lambda: multithreading(arquivoCSV))
+menu_3.add_command(label="Salvar para um arquivo CSV", command=lambda: multithreading(arquivoCSV(text.get("1.0", END))))
 menu_3.add_command(label="Abrir Comparador", command=comparador)
 
 menubar.add_cascade(label="Outros", menu=menu_3)
