@@ -66,8 +66,6 @@ def comparador():
 
         missing = list(sorted(set1 - set2))
 
-        print('missing:', missing)
-
         for element in missing:
             text_relacao_3.insert("1.0", element + "\n")
 
