@@ -303,7 +303,7 @@ menubar.add_cascade(label="Outros", menu=menu_3)
 
 root.config(menu=menubar)
 
-text = Text(root, height=27)
+text = Text(root, height=26)
 text.pack(pady=5, padx=5)
 
 button_copiar = Button(root, text="Copiar", width=10, height=2, command=lambda: pyperclip.copy(text.get("1.0", END)))
