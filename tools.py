@@ -6,6 +6,7 @@ from tkinter import filedialog
 from tkinter import messagebox
 import cv2
 from io import StringIO
+
 import pyperclip
 
 import pandas as pd
@@ -16,7 +17,7 @@ from PIL import Image
 root = Tk()
 
 janela_width = 500
-janela_height = 510
+janela_height = 500
 
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
@@ -111,7 +112,9 @@ def erro(e):
 
 
 def multithreading(funcao):
-    threading.Thread(target=funcao).start()
+    x = threading.Thread(target=funcao)
+    x.setDaemon(True)
+    x.start()
 
 
 def pasteBin():
@@ -267,6 +270,58 @@ def arquivoCSV(texto):
         erro(e)
 
 
+def depreciacao():
+    file_1 = filedialog.askopenfilename()
+
+    file_2 = filedialog.askopenfilename()
+
+    patrimonios_1 = []
+
+    patrimonios_2 = []
+
+    depreciacao_total = 0
+
+    with open(file_1, "r") as f1:
+        relacao_1 = f1.read()
+
+    with open(file_2, "r") as f2:
+        relacao_2 = f2.read()
+
+    relacao_1_array = relacao_1.split("\n")
+
+    relacao_2_array = relacao_2.split("\n")
+
+    for i in relacao_1_array:
+        filtro_1 = i.split(",")
+
+        if filtro_1[1] != "0":
+            patrimonios_1.append(filtro_1[0])
+
+    for j in relacao_2_array:
+        filtro_2 = j.split(",")
+
+        if filtro_2[1] == "0":
+            patrimonios_2.append(filtro_2[0])
+
+    temp = [x for x in patrimonios_1 if x in patrimonios_2]
+
+    counter = 0
+
+    for valor in relacao_1_array:
+        filtro_3 = valor.split(",")
+
+        if filtro_3[0] in temp:
+            counter = counter + 1
+
+            depreciacao_total = depreciacao_total + float(filtro_3[1])
+
+            text.insert("end", filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n")
+
+    text.insert("1.0", "Total Achados: " + str(counter) + "\n\n")
+
+    text.insert("end", "\nDepreciação Total: R$ " + str(round(depreciacao_total, 2)))
+
+
 menubar = Menu(root)
 
 menu_1 = Menu(menubar, tearoff=0)
@@ -290,13 +345,22 @@ menu_3 = Menu(menubar, tearoff=0)
 menu_3.add_command(label="Abrir pastebin.com", command=lambda: multithreading(pasteBin))
 menu_3.add_command(label="Salvar para um arquivo CSV", command=lambda: multithreading(arquivoCSV(text.get("1.0", END))))
 menu_3.add_command(label="Abrir Comparador", command=comparador)
+menu_3.add_command(label="Depreciação", command=lambda: multithreading(depreciacao))
 
 menubar.add_cascade(label="Outros", menu=menu_3)
 
 root.config(menu=menubar)
 
-text = Text(root, height=26)
-text.pack(pady=5, padx=5)
+frame_text_widget = Frame(root)
+frame_text_widget.pack()
+
+text = Text(frame_text_widget, height=26, width=58)
+text.pack(side=LEFT, pady=5, padx=5)
+
+text_scrollbar = Scrollbar(frame_text_widget, command=text.yview, orient="vertical")
+text_scrollbar.pack(fill=Y, side=RIGHT, pady=5)
+
+text.configure(yscrollcommand=text_scrollbar.set)
 
 button_copiar = Button(root, text="Copiar", width=10, height=2, command=lambda: pyperclip.copy(text.get("1.0", END)))
 button_copiar.pack(side=LEFT, padx=5, pady=5)
