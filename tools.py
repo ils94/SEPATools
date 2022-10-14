@@ -57,7 +57,7 @@ menu_3.add_command(label="Salvar para um arquivo CSV",
                    command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
 menu_3.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
 menu_3.add_command(label="Calculo de Depreciação",
-                   command=lambda: misc.multithreading(lambda: depreciacao.calcular(text)))
+                   command=lambda: depreciacao.calcular(root, x, y, text))
 
 menubar.add_cascade(label="Outros", menu=menu_3)
 
