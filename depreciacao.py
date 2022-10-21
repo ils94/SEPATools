@@ -13,108 +13,116 @@ def calcular(root, x, y, text):
     calcular_janela.title("Calcular Depreciação")
 
     def limpeza(entry):
-        novoTexto = ""
+        try:
+            novoTexto = ""
 
-        cabecalho = ""
+            cabecalho = ""
 
-        rodape = ""
+            rodape = ""
 
-        split_1 = entry.get("1.0", "end").split("\n")
+            split_1 = entry.get("1.0", "end").split("\n")
 
-        for cabecalho1 in split_1[0:17]:
-            cabecalho += cabecalho1 + "\n"
+            for cabecalho1 in split_1[0:17]:
+                cabecalho += cabecalho1 + "\n"
 
-        for rodape1 in split_1[40:43]:
-            rodape += rodape1 + "\n"
+            for rodape1 in split_1[40:43]:
+                rodape += rodape1 + "\n"
 
-        limpo = entry.get("1.0", "end").replace(cabecalho, "").replace(rodape, "").split("\n")
+            limpo = entry.get("1.0", "end").replace(cabecalho, "").replace(rodape, "").split("\n")
 
-        for linha in limpo:
-            if "PA0365" in linha:
-                limpo.remove(linha)
+            for linha in limpo:
+                if "PA0365" in linha:
+                    limpo.remove(linha)
 
-        del limpo[-1]
+            del limpo[-1]
 
-        del limpo[-1]
+            del limpo[-1]
 
-        del limpo[-1]
+            del limpo[-1]
 
-        novoTexto += "a;b;c;d;e;f;g;h;i;j;k;l;m;n;o;p;q;r;s;\n"
+            novoTexto += "a;b;c;d;e;f;g;h;i;j;k;l;m;n;o;p;q;r;s;\n"
 
-        for novaLinha in limpo:
-            novoTexto += novaLinha + "\n"
+            for novaLinha in limpo:
+                novoTexto += novaLinha + "\n"
 
-        return novoTexto
+            return novoTexto
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
     def IO(texto):
-        Stringio = StringIO(texto)
+        try:
+            Stringio = StringIO(texto)
 
-        df = pd.read_csv(Stringio, sep=";")
+            df = pd.read_csv(Stringio, sep=";")
 
-        df1 = df[["b", "m"]]
+            df1 = df[["b", "m"]]
 
-        df2 = df1.to_csv(header=None, index=False, sep=";")
+            df2 = df1.to_csv(header=None, index=False, sep=";")
 
-        resultado = str(df2).replace("\r", "")
+            resultado = str(df2).replace("\r", "")
 
-        resultado = resultado.replace(",", ".")
+            resultado = resultado.replace(",", ".")
 
-        return resultado
+            return resultado
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
     def iniciar():
+        try:
+            if entry_lista_1 and entry_lista_2:
 
-        if entry_lista_1 and entry_lista_2:
+                text.delete("1.0", "end")
 
-            text.delete("1.0", "end")
+                patrimonios_1 = []
 
-            patrimonios_1 = []
+                patrimonios_2 = []
 
-            patrimonios_2 = []
+                depreciacao_total = 0
 
-            depreciacao_total = 0
+                relacao_1 = IO(limpeza(entry_lista_1))
 
-            relacao_1 = IO(limpeza(entry_lista_1))
+                relacao_2 = IO(limpeza(entry_lista_2))
 
-            relacao_2 = IO(limpeza(entry_lista_2))
+                relacao_1_array = relacao_1.split("\n")
 
-            relacao_1_array = relacao_1.split("\n")
+                relacao_2_array = relacao_2.split("\n")
 
-            relacao_2_array = relacao_2.split("\n")
+                relacao_1_array.remove("")
+                relacao_2_array.remove("")
 
-            relacao_1_array.remove("")
-            relacao_2_array.remove("")
+                for i in relacao_1_array:
+                    filtro_1 = i.split(";")
 
-            for i in relacao_1_array:
-                filtro_1 = i.split(";")
+                    if filtro_1[1] != "0.00":
+                        patrimonios_1.append(filtro_1[0])
 
-                if filtro_1[1] != "0.00":
-                    patrimonios_1.append(filtro_1[0])
+                for j in relacao_2_array:
+                    filtro_2 = j.split(";")
 
-            for j in relacao_2_array:
-                filtro_2 = j.split(";")
+                    if filtro_2[1] == "0.00":
+                        patrimonios_2.append(filtro_2[0])
 
-                if filtro_2[1] == "0.00":
-                    patrimonios_2.append(filtro_2[0])
+                temp = [x for x in patrimonios_1 if x in patrimonios_2]
 
-            temp = [x for x in patrimonios_1 if x in patrimonios_2]
+                counter = 0
 
-            counter = 0
+                for valor in relacao_1_array:
+                    filtro_3 = valor.split(";")
 
-            for valor in relacao_1_array:
-                filtro_3 = valor.split(";")
+                    if filtro_3[0] in temp:
+                        counter = counter + 1
 
-                if filtro_3[0] in temp:
-                    counter = counter + 1
+                        depreciacao_total = depreciacao_total + float(filtro_3[1])
 
-                    depreciacao_total = depreciacao_total + float(filtro_3[1])
+                        text.insert("end", filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n")
 
-                    text.insert("end", filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n")
+                text.insert("1.0", "Total Achados: " + str(counter) + "\n\n")
 
-            text.insert("1.0", "Total Achados: " + str(counter) + "\n\n")
-
-            text.insert("end", "\nDepreciação Total: R$ " + str(round(depreciacao_total, 2)))
-        else:
-            messagebox.showerror("Erro", "Informe os dois arquivos.")
+                text.insert("end", "\nDepreciação Total: R$ " + str(round(depreciacao_total, 2)))
+            else:
+                messagebox.showerror("Erro", "Informe os dois arquivos.")
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
 
     def abrir(entry):
         entry.delete(0, END)
