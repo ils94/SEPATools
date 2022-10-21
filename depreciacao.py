@@ -47,7 +47,7 @@ def calcular(root, x, y, text):
 
             return novoTexto
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Erro em Limpeza", str(e))
 
     def IO(texto):
         try:
@@ -65,7 +65,7 @@ def calcular(root, x, y, text):
 
             return resultado
         except Exception as e:
-            messagebox.showerror("Error", str(e))
+            messagebox.showerror("Error no IO", str(e))
 
     def iniciar():
         try:
@@ -122,11 +122,7 @@ def calcular(root, x, y, text):
             else:
                 messagebox.showerror("Erro", "Informe os dois arquivos.")
         except Exception as e:
-            messagebox.showerror("Error", str(e))
-
-    def abrir(entry):
-        entry.delete(0, END)
-        entry.insert(END, filedialog.askopenfilename(defaultextension=".csv", filetypes=[("Arquivo CSV", "*.csv")]))
+            messagebox.showerror("Error em Iniciar", str(e))
 
     frame1 = Frame(calcular_janela)
     frame1.pack(fill=X, pady=2)
