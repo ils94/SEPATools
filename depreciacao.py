@@ -1,4 +1,4 @@
-from tkinter import filedialog, Toplevel, Frame, X, LEFT, Entry, Button, messagebox, END, Text
+from tkinter import filedialog, Toplevel, Frame, X, LEFT, Button, messagebox, END, Text
 import misc
 import pandas as pd
 from io import StringIO
@@ -126,17 +126,11 @@ def calcular(root, x, y, text):
     entry_lista_1 = Text(frame1, height=1)
     entry_lista_1.pack(side=LEFT, padx=5)
 
-    button_lista_1 = Button(frame1, text="Abrir", height=1, width=5, command=lambda: abrir(entry_lista_1))
-    button_lista_1.pack(side=LEFT, padx=5)
-
     frame2 = Frame(calcular_janela)
     frame2.pack(fill=X, pady=2)
 
     entry_lista_2 = Text(frame2, height=1)
     entry_lista_2.pack(side=LEFT, padx=5)
-
-    button_lista_2 = Button(frame2, text="Abrir", height=1, width=5, command=lambda: abrir(entry_lista_2))
-    button_lista_2.pack(side=LEFT, padx=5)
 
     button_calcular = Button(calcular_janela, text="Calcular", height=1, width=10,
                              command=lambda: misc.multithreading(iniciar()))
