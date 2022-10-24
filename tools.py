@@ -57,7 +57,7 @@ menu_3.add_command(label="Salvar para um arquivo CSV",
                    command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
 menu_3.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
 menu_3.add_command(label="Calculo de Depreciação",
-                   command=lambda: depreciacao.calcular(root, x, y, text))
+                   command=lambda: depreciacao.calcular(root, x, y))
 
 menubar.add_cascade(label="Outros", menu=menu_3)
 
@@ -66,7 +66,7 @@ root.config(menu=menubar)
 frame_text_widget = Frame(root)
 frame_text_widget.pack()
 
-text = Text(frame_text_widget, height=26, width=58)
+text = Text(frame_text_widget, height=27, width=58)
 text.pack(side=LEFT, pady=5, padx=5)
 
 text_scrollbar = Scrollbar(frame_text_widget, command=text.yview, orient="vertical")
@@ -74,10 +74,10 @@ text_scrollbar.pack(fill=Y, side=RIGHT, pady=5)
 
 text.configure(yscrollcommand=text_scrollbar.set)
 
-button_copiar = Button(root, text="Copiar", width=10, height=2, command=lambda: pyperclip.copy(text.get("1.0", END)))
+button_copiar = Button(root, text="Copiar", width=10, height=1, command=lambda: pyperclip.copy(text.get("1.0", END)))
 button_copiar.pack(side=LEFT, padx=5, pady=5)
 
-button_copiar = Button(root, text="Apagar", width=10, height=2, command=lambda: text.delete("1.0", END))
+button_copiar = Button(root, text="Apagar", width=10, height=1, command=lambda: text.delete("1.0", END))
 button_copiar.pack(side=RIGHT, padx=5, pady=5)
 
 root.mainloop()

@@ -1,16 +1,27 @@
-from tkinter import filedialog, Toplevel, Frame, X, LEFT, Button, messagebox, END, Text
+from tkinter import Toplevel, Frame, X, Y, LEFT, RIGHT, Button, messagebox, END, Text, Scrollbar
 import misc
 import pandas as pd
 from io import StringIO
+import pyperclip
+
+resultado_tudo = ""
+resultado_patrimonio = ""
+resultado_valores = ""
+resultado_depreciacao = ""
+resultado_achados = ""
+resultado_patrimonio_valores = ""
 
 
-def calcular(root, x, y, text):
+def calcular(root, x, y):
     calcular_janela = Toplevel(root)
-    calcular_janela.attributes("-topmost", True)
-    calcular_janela.geometry("500x100+" + str(int(x)) + "+" + str(int(y)))
+    calcular_janela.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
     calcular_janela.resizable(False, False)
     calcular_janela.iconbitmap("icones/depreciacao.ico")
     calcular_janela.title("Calcular Depreciação")
+
+    def botoes_valores(text, valor):
+        text.delete("1.0", "end")
+        text.insert("1.0", valor)
 
     def limpeza(entry):
         try:
@@ -68,10 +79,17 @@ def calcular(root, x, y, text):
             messagebox.showerror("Error no IO", str(e))
 
     def iniciar():
+
+        global resultado_tudo, resultado_patrimonio, resultado_valores, resultado_depreciacao, resultado_achados, resultado_patrimonio_valores
+
         try:
             if entry_lista_1 and entry_lista_2:
 
-                text.delete("1.0", "end")
+                tudo["state"] = "normal"
+                patrimonio["state"] = "normal"
+                valores["state"] = "normal"
+
+                resultado_text.delete("1.0", "end")
 
                 patrimonios_1 = []
 
@@ -114,11 +132,20 @@ def calcular(root, x, y, text):
 
                         depreciacao_total = depreciacao_total + float(filtro_3[1])
 
-                        text.insert("end", filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n")
+                        resultado_patrimonio_valores += filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n"
 
-                text.insert("1.0", "Total Achados: " + str(counter) + "\n\n")
+                        resultado_patrimonio += filtro_3[0] + "\n"
 
-                text.insert("end", "\nDepreciação Total: R$ " + str(round(depreciacao_total, 2)))
+                        resultado_valores += str(filtro_3[1]) + "\n"
+
+                resultado_achados = "Total Achados: " + str(counter)
+
+                resultado_depreciacao = resultado_depreciacao = "Depreciação Total: R$ " + str(
+                    round(depreciacao_total, 2))
+
+                resultado_tudo = resultado_achados + "\n\n" + resultado_depreciacao + "\n\n" + resultado_patrimonio_valores
+
+                resultado_text.insert("1.0", resultado_tudo)
             else:
                 messagebox.showerror("Erro", "Informe os dois arquivos.")
         except Exception as e:
@@ -136,9 +163,42 @@ def calcular(root, x, y, text):
     entry_lista_2 = Text(frame2, height=1)
     entry_lista_2.pack(side=LEFT, padx=5)
 
-    button_calcular = Button(calcular_janela, text="Calcular", height=1, width=10,
+    frame3 = Frame(calcular_janela)
+    frame3.pack(fill=X, pady=2, padx=3)
+
+    tudo = Button(frame3, text="Tudo", height=1, width=5,
+                  command=lambda: botoes_valores(resultado_text, resultado_tudo))
+    tudo.pack(side=LEFT, padx=2)
+    tudo["state"] = "disabled"
+
+    patrimonio = Button(frame3, text="Só patrimônios", height=1, width=15,
+                        command=lambda: botoes_valores(resultado_text, resultado_patrimonio))
+    patrimonio.pack(side=LEFT, padx=2)
+    patrimonio["state"] = "disabled"
+
+    valores = Button(frame3, text="Só valores", height=1, width=10,
+                     command=lambda: botoes_valores(resultado_text, resultado_valores))
+    valores.pack(side=LEFT, padx=2)
+    valores["state"] = "disabled"
+
+    button_calcular = Button(frame3, text="Calcular", height=1, width=10,
                              command=lambda: misc.multithreading(iniciar()))
-    button_calcular.pack(side=LEFT, pady=5, padx=5)
+    button_calcular.pack(side=RIGHT, padx=2)
+
+    frame4 = Frame(calcular_janela)
+    frame4.pack()
+
+    resultado_text = Text(frame4, height=24, width=58)
+    resultado_text.pack(side=LEFT, padx=5, pady=2)
+
+    text_scrollbar = Scrollbar(frame4, command=resultado_text.yview, orient="vertical")
+    text_scrollbar.pack(fill=Y, side=RIGHT)
+
+    resultado_text.configure(yscrollcommand=text_scrollbar.set)
+
+    copiar = Button(calcular_janela, text="Copiar", height=1, width=10,
+                    command=lambda: pyperclip.copy(resultado_text.get("1.0", "end")))
+    copiar.pack(side=LEFT, pady=2, padx=5)
 
     entry_lista_1.insert(END, "Primeiro mês")
     entry_lista_2.insert(END, "Segundo mês")
