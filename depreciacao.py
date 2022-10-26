@@ -76,80 +76,76 @@ def calcular(root, x, y):
 
             return resultado
         except Exception as e:
-            messagebox.showerror("Error no IO", str(e))
+            messagebox.showerror("Erro no IO", str(e))
 
     def iniciar():
 
         global resultado_tudo, resultado_patrimonio, resultado_valores, resultado_depreciacao, resultado_achados, resultado_patrimonio_valores
 
         try:
-            if entry_lista_1 and entry_lista_2:
+            tudo["state"] = "normal"
+            patrimonio["state"] = "normal"
+            valores["state"] = "normal"
 
-                tudo["state"] = "normal"
-                patrimonio["state"] = "normal"
-                valores["state"] = "normal"
+            resultado_text.delete("1.0", "end")
 
-                resultado_text.delete("1.0", "end")
+            patrimonios_1 = []
 
-                patrimonios_1 = []
+            patrimonios_2 = []
 
-                patrimonios_2 = []
+            depreciacao_total = 0
 
-                depreciacao_total = 0
+            relacao_1 = IO(limpeza(entry_lista_1))
 
-                relacao_1 = IO(limpeza(entry_lista_1))
+            relacao_2 = IO(limpeza(entry_lista_2))
 
-                relacao_2 = IO(limpeza(entry_lista_2))
+            relacao_1_array = relacao_1.split("\n")
 
-                relacao_1_array = relacao_1.split("\n")
+            relacao_2_array = relacao_2.split("\n")
 
-                relacao_2_array = relacao_2.split("\n")
+            relacao_1_array.remove("")
+            relacao_2_array.remove("")
 
-                relacao_1_array.remove("")
-                relacao_2_array.remove("")
+            for i in relacao_1_array:
+                filtro_1 = i.split(";")
 
-                for i in relacao_1_array:
-                    filtro_1 = i.split(";")
+                if filtro_1[1] != "0.00":
+                    patrimonios_1.append(filtro_1[0])
 
-                    if filtro_1[1] != "0.00":
-                        patrimonios_1.append(filtro_1[0])
+            for j in relacao_2_array:
+                filtro_2 = j.split(";")
 
-                for j in relacao_2_array:
-                    filtro_2 = j.split(";")
+                if filtro_2[1] == "0.00":
+                    patrimonios_2.append(filtro_2[0])
 
-                    if filtro_2[1] == "0.00":
-                        patrimonios_2.append(filtro_2[0])
+            temp = [x for x in patrimonios_1 if x in patrimonios_2]
 
-                temp = [x for x in patrimonios_1 if x in patrimonios_2]
+            counter = 0
 
-                counter = 0
+            for valor in relacao_1_array:
+                filtro_3 = valor.split(";")
 
-                for valor in relacao_1_array:
-                    filtro_3 = valor.split(";")
+                if filtro_3[0] in temp:
+                    counter = counter + 1
 
-                    if filtro_3[0] in temp:
-                        counter = counter + 1
+                    depreciacao_total = depreciacao_total + float(filtro_3[1])
 
-                        depreciacao_total = depreciacao_total + float(filtro_3[1])
+                    resultado_patrimonio_valores += filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n"
 
-                        resultado_patrimonio_valores += filtro_3[0] + " - R$ " + str(filtro_3[1]) + "\n"
+                    resultado_patrimonio += filtro_3[0] + "\n"
 
-                        resultado_patrimonio += filtro_3[0] + "\n"
+                    resultado_valores += str(filtro_3[1]) + "\n"
 
-                        resultado_valores += str(filtro_3[1]) + "\n"
+            resultado_achados = "Total Achados: " + str(counter)
 
-                resultado_achados = "Total Achados: " + str(counter)
+            resultado_depreciacao = resultado_depreciacao = "Depreciação Total: R$ " + str(
+                round(depreciacao_total, 2))
 
-                resultado_depreciacao = resultado_depreciacao = "Depreciação Total: R$ " + str(
-                    round(depreciacao_total, 2))
+            resultado_tudo = resultado_achados + "\n\n" + resultado_depreciacao + "\n\n" + resultado_patrimonio_valores
 
-                resultado_tudo = resultado_achados + "\n\n" + resultado_depreciacao + "\n\n" + resultado_patrimonio_valores
-
-                resultado_text.insert("1.0", resultado_tudo)
-            else:
-                messagebox.showerror("Erro", "Informe os dois arquivos.")
+            resultado_text.insert("1.0", resultado_tudo)
         except Exception as e:
-            messagebox.showerror("Error em Iniciar", str(e))
+            messagebox.showerror("Erro em Iniciar", str(e))
 
     frame1 = Frame(calcular_janela)
     frame1.pack(fill=X, pady=2)
