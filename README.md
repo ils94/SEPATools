@@ -47,7 +47,7 @@ Copie tudo da pagina aberta (utilize Ctrl + A para selecionar tudo):
 
 [![7.png](https://i.postimg.cc/fbXx4V3W/7.png)](https://postimg.cc/qtJtyMXW)
 
-Abra o SEPATools e cole no campo de texto, o texto copiado da pagina gerada pelo ASIWEB, sem seguida escolha no Menu Padronizar o tipo de filtro, para uso em levantamento, utilizar o filtro "Matérial + Patrimônio":
+Abra o SEPATools e cole no campo de texto, o texto copiado da pagina gerada pelo ASIWEB, em seguida escolha no Menu Padronizar o tipo de filtro, para uso em levantamento, utilizar o filtro "Matérial + Patrimônio":
 
 [![8.png](https://i.postimg.cc/0j9G09yk/8.png)](https://postimg.cc/34bDK5GV)
 
