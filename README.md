@@ -1,11 +1,19 @@
 # SEPATools
 Ferramenta necessaria para padronizar arquivos a serem usados com os aplicativos "SEPAT Scanner" e "SEPAT Levantamento"
 
+[Link de Download direto do SEPATools](https://github.com/ils94/SEPATools/releases/download/release/tools.zip)
+
 # SEPAT Scanner: 
-https://github.com/ils94/SEPAT_Scanner
+
+[Pagina principal](https://github.com/ils94/SEPAT_Scanner)
+
+[Link de Download direto](https://github.com/ils94/SEPAT_Scanner/releases/download/release/sepat-scanner.apk)
 
 # SEPAT Levantamento: 
-https://github.com/ils94/SEPAT_Levantamento
+
+[Pagina principal](https://github.com/ils94/SEPAT_Levantamento)
+
+[Link de Download direto](https://github.com/ils94/SEPAT_Levantamento/releases/download/release/sepat-levantamento.apk)
 
 # **Utilização**
 
