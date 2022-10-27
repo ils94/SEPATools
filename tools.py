@@ -60,6 +60,8 @@ menu_3.add_command(label="Salvar para um arquivo CSV",
 menu_3.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
 menu_3.add_command(label="Calculo de Depreciação",
                    command=lambda: depreciacao.calcular(root, x, y))
+menu_3.add_command(label="Extrair tabela de PDF",
+                   command=lambda: misc.multithreading(misc.extrair_tabela()))
 
 menubar.add_cascade(label="Outros", menu=menu_3)
 

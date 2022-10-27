@@ -6,13 +6,15 @@ def salvar(texto):
     try:
         saida = filedialog.asksaveasfilename(defaultextension=".csv", filetypes=[("Arquivo CSV", "*.csv")])
 
-        arquivo = open(saida, "wb")
-        arquivo.write(bytes(texto, "utf-8"))
-        arquivo.close()
+        if saida != "":
 
-        pergunta = messagebox.askyesno("Concluído", "Abrir arquivo?")
+            arquivo = open(saida, "wb")
+            arquivo.write(bytes(texto, "utf-8"))
+            arquivo.close()
 
-        if pergunta:
-            os.startfile(saida)
+            pergunta = messagebox.askyesno("Concluído", "Abrir arquivo?")
+
+            if pergunta:
+                os.startfile(saida)
     except Exception as e:
         messagebox.showerror("Erro", str(e))

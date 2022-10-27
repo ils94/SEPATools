@@ -2,6 +2,7 @@ from tkinter import Toplevel, END, Frame, LEFT, Text, Button, RIGHT, messagebox
 from io import StringIO
 import pandas as pd
 import misc
+import arquivoCSV
 
 
 def comparar(root, x, y):
@@ -74,7 +75,7 @@ def comparar(root, x, y):
     button_comparar.pack(side=LEFT, pady=5)
 
     salvar_csv_button = Button(frame_3, text="Para CSV", width=10, height=2,
-                               command=lambda: misc.multithreading(arquivoCSV(text_relacao_3.get("1.0", END))))
+                               command=lambda: misc.multithreading(arquivoCSV.salvar(text_relacao_3.get("1.0", END))))
     salvar_csv_button.pack(side=RIGHT, pady=5)
 
     comparador_janela.mainloop()
