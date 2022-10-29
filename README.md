@@ -97,6 +97,6 @@ Depois que o levantamento for concluído, vá em "Arquivo..." novamente:
 
 [![9.jpg](https://i.postimg.cc/bNxxFDtz/9.jpg)](https://postimg.cc/jLjnDjc9)
 
-Digite um nome para o relatório, e clique em "ENVIAR". Envie o relatório por E-mail ou Whatsapp (preferência do usuário):
+Digite um nome para o relatório, e clique em "ENVIAR".
 
 [![10.jpg](https://i.postimg.cc/jSRHVxHy/10.jpg)](https://postimg.cc/gnBX8PB0)
