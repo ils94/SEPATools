@@ -47,8 +47,14 @@ menu_2.add_command(label="Material + Patrimônio",
                    command=lambda: misc.multithreading(lambda: filtrar.materialPatrimonio(text)))
 menu_2.add_command(label="Marca + Patrimônio",
                    command=lambda: misc.multithreading(lambda: filtrar.marcaPatrimonio(text)))
-menu_2.add_command(label="Termo de Saída",
-                   command=lambda: misc.multithreading(lambda: filtrar.filtrarPorTermo(text)))
+
+sub_menu = Menu(menu_2, tearoff=False)
+sub_menu.add_command(label="Descrição + Patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.termo_descricao_patrimonio(text)))
+sub_menu.add_command(label="Somente patrimônios",
+                     command=lambda: misc.multithreading(lambda: filtrar.termo_patrimonio(text)))
+
+menu_2.add_cascade(label="Termo de Saída", menu=sub_menu)
 
 menubar.add_cascade(label="Padronizar", menu=menu_2)
 

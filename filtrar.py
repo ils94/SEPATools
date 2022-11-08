@@ -66,7 +66,7 @@ def marcaPatrimonio(text):
         messagebox.showerror("Erro", str(e))
 
 
-def filtrarPorTermo(text):
+def termo_filtro(text):
     try:
         novo_texto = ""
 
@@ -121,13 +121,39 @@ def filtrarPorTermo(text):
 
         Stringio = StringIO(novo_texto)
 
-        df = pd.read_csv(Stringio, sep=",")
+        return Stringio
+
+    except Exception as e:
+        messagebox.showerror("Erro", str(e))
+
+
+def termo_descricao_patrimonio(text):
+    try:
+        df = pd.read_csv(termo_filtro(text), sep=",")
 
         df["i"] = df["i"].str.replace("\d+", "").str.replace(" - ", "").str.replace(".", "").replace("-", "").str[:20]
 
         df["b"] = df["b"].apply(lambda x: '{0:0>6}'.format(x))
 
         df1 = df[["i", "b"]]
+
+        df2 = df1.to_csv(header=None, index=False)
+
+        resultado = str(df2).replace("\r", "")
+
+        text.delete("1.0", END)
+        text.insert("1.0", resultado)
+    except Exception as e:
+        messagebox.showerror("Erro", str(e))
+
+
+def termo_patrimonio(text):
+    try:
+        df = pd.read_csv(termo_filtro(text), sep=",")
+
+        df["b"] = df["b"].apply(lambda x: '{0:0>6}'.format(x))
+
+        df1 = df[["b"]]
 
         df2 = df1.to_csv(header=None, index=False)
 
