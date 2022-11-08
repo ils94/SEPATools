@@ -41,15 +41,18 @@ menubar.add_cascade(label="QR Code", menu=menu_1)
 
 menu_2 = Menu(menubar, tearoff=0)
 
-menu_2.add_command(label="Apenas patrimônio",
-                   command=lambda: misc.multithreading(lambda: filtrar.apenasPatrimonio(text)))
-menu_2.add_command(label="Material + Patrimônio",
-                   command=lambda: misc.multithreading(lambda: filtrar.materialPatrimonio(text)))
-menu_2.add_command(label="Marca + Patrimônio",
-                   command=lambda: misc.multithreading(lambda: filtrar.marcaPatrimonio(text)))
+sub_menu = Menu(menu_2, tearoff=False)
+sub_menu.add_command(label="Apenas patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.apenas_patrimonio(text)))
+sub_menu.add_command(label="Material + Patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.material_patrimonio(text)))
+sub_menu.add_command(label="Marca + Patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.marca_patrimonio(text)))
+
+menu_2.add_cascade(label="Relação de bens", menu=sub_menu)
 
 sub_menu = Menu(menu_2, tearoff=False)
-sub_menu.add_command(label="Descrição + Patrimônio",
+sub_menu.add_command(label="Material + Patrimônio",
                      command=lambda: misc.multithreading(lambda: filtrar.termo_descricao_patrimonio(text)))
 sub_menu.add_command(label="Somente patrimônios",
                      command=lambda: misc.multithreading(lambda: filtrar.termo_patrimonio(text)))

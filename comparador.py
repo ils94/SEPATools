@@ -3,6 +3,7 @@ from io import StringIO
 import pandas as pd
 import misc
 import arquivoCSV
+import filtrar
 
 
 def comparar(root, x, y):
@@ -12,9 +13,9 @@ def comparar(root, x, y):
     comparador_janela.iconbitmap("icones/compare.ico")
     comparador_janela.title("Comparador")
 
-    def limpar(texto, campo):
+    def filtro(text):
         try:
-            Stringio = StringIO(texto)
+            Stringio = StringIO(text.get("1.0", END))
 
             df = pd.read_csv(Stringio)
             df.sort_values(by=["Patrimônio"], inplace=True)
@@ -24,13 +25,14 @@ def comparar(root, x, y):
 
             df2 = df1.to_csv(header=None, index=False)
 
-            campo.delete("1.0", END)
-            campo.insert("1.0", str(df2).replace("\r", ""))
-        except Exception as e:
-            messagebox.showerror("Erro", str(e))
+            resultado = str(df2).replace("\r", "")
+
+            text.delete("1.0", END)
+            text.insert("1.0", resultado)
+        except Exception:
+            filtrar.termo_patrimonio(text)
 
     def comparar(texto1, texto2):
-
         text_relacao_3.delete("1.0", END)
 
         list1 = texto1.split("\n")
@@ -51,7 +53,7 @@ def comparar(root, x, y):
     text_relacao_1.pack()
 
     button_limpar_1 = Button(frame_1, text="Filtrar", width=10, height=2,
-                             command=lambda: limpar(text_relacao_1.get("1.0", END), text_relacao_1))
+                             command=lambda: filtro(text_relacao_1))
     button_limpar_1.pack(side=LEFT, pady=5)
 
     frame_2 = Frame(comparador_janela)
@@ -61,7 +63,7 @@ def comparar(root, x, y):
     text_relacao_2.pack()
 
     button_limpar_2 = Button(frame_2, text="Filtrar", width=10, height=2,
-                             command=lambda: limpar(text_relacao_2.get("1.0", END), text_relacao_2))
+                             command=lambda: filtro(text_relacao_2))
     button_limpar_2.pack(side=LEFT, pady=5)
 
     frame_3 = Frame(comparador_janela)

@@ -3,7 +3,7 @@ from tkinter import END, messagebox
 import pandas as pd
 
 
-def apenasPatrimonio(text):
+def apenas_patrimonio(text):
     try:
         Stringio = StringIO(text.get("1.0", END))
 
@@ -23,7 +23,7 @@ def apenasPatrimonio(text):
         messagebox.showerror("Erro", str(e))
 
 
-def materialPatrimonio(text):
+def material_patrimonio(text):
     try:
         Stringio = StringIO(text.get("1.0", END))
 
@@ -46,7 +46,7 @@ def materialPatrimonio(text):
         messagebox.showerror("Erro", str(e))
 
 
-def marcaPatrimonio(text):
+def marca_patrimonio(text):
     try:
         Stringio = StringIO(text.get("1.0", END))
 
