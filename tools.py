@@ -7,6 +7,7 @@ import gerarQRCodes
 import pastebin
 import depreciacao
 import arquivoCSV
+import arquivoJSON
 
 import pyperclip
 
@@ -64,6 +65,7 @@ menubar.add_cascade(label="Padronizar", menu=menu_2)
 menu_3 = Menu(menubar, tearoff=0)
 
 menu_3.add_command(label="Abrir pastebin.com", command=lambda: misc.multithreading(pastebin.abrir))
+menu_3.add_command(label="Criar JSON", command=lambda: misc.multithreading(arquivoJSON.criar_json(root, x, y, text)))
 menu_3.add_command(label="Salvar para um arquivo CSV",
                    command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
 menu_3.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
