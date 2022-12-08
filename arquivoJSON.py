@@ -15,19 +15,28 @@ def criar_json(root, x, y, text):
 
     def criar():
 
+        novo_texto = ""
+
         if nome_arquivo.get() == "":
             messagebox.showerror("Erro", "É necessário escolher um nome para o arquivo.")
         else:
+
+            lista = text.split("\n")
+
+            for linha in lista:
+                if linha is not "":
+                    novo_texto += linha + "\n"
+
             estrutura = {"nomeArquivo": nome_arquivo.get().upper(),
                          "foraRelacao": "",
-                         "relacao": text.replace(",", ": "),
+                         "relacao": novo_texto.replace(",", ": "),
                          "anotacoes": ""}
 
             arquivo_json = json.dumps(estrutura)
 
             criar_json_janela.destroy()
 
-            myPastebin.paste(arquivo_json.replace("\n\n", "\n"), root, x, y)
+            myPastebin.paste(arquivo_json, root, x, y)
 
     frame1 = Frame(criar_json_janela)
     frame1.pack(fill=X)
