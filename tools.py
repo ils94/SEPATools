@@ -4,7 +4,7 @@ import misc
 import comparador
 import filtrar
 import gerarQRCodes
-import pastebin
+import myPastebin
 import depreciacao
 import arquivoCSV
 import arquivoJSON
@@ -32,11 +32,13 @@ menubar = Menu(root)
 menu_1 = Menu(menubar, tearoff=0)
 
 menu_1.add_command(label="Mostrar QR code apenas",
-                   command=lambda: misc.multithreading(lambda: gerarQRCodes.gerar(text)))
+                   command=lambda: misc.multithreading(lambda: gerarQRCodes.gerar(text.get("1.0", "end"))))
 menu_1.add_command(label="Gerar QR code sem brasão",
-                   command=lambda: misc.multithreading(lambda: gerarQRCodes.gerar(text, salvar="sim")))
+                   command=lambda: misc.multithreading(
+                       lambda: gerarQRCodes.gerar(text.get("1.0", "end"), salvar="sim")))
 menu_1.add_command(label="Gerar QR code com brasão",
-                   command=lambda: misc.multithreading(lambda: gerarQRCodes.gerar(text, salvar="sim", brasao="sim")))
+                   command=lambda: misc.multithreading(
+                       lambda: gerarQRCodes.gerar(text.get("1.0", "end"), salvar="sim", brasao="sim")))
 
 menubar.add_cascade(label="QR Code", menu=menu_1)
 
@@ -64,7 +66,7 @@ menubar.add_cascade(label="Padronizar", menu=menu_2)
 
 menu_3 = Menu(menubar, tearoff=0)
 
-menu_3.add_command(label="Abrir pastebin.com", command=lambda: misc.multithreading(pastebin.abrir))
+menu_3.add_command(label="Abrir pastebin.com", command=lambda: misc.multithreading(myPastebin.abrir))
 menu_3.add_command(label="Criar JSON", command=lambda: misc.multithreading(arquivoJSON.criar_json(root, x, y, text)))
 menu_3.add_command(label="Salvar para um arquivo CSV",
                    command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))

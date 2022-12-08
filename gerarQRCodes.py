@@ -8,7 +8,7 @@ from PIL import Image
 def apenasGerarQRCode(text):
     try:
         qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4, )
-        qr.add_data(text.get("1.0", END))
+        qr.add_data(text)
         qr.make(fit=True)
 
         img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
@@ -28,7 +28,7 @@ def gerarQrCodeSemBrasao(text):
 
         if salvar:
             qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4, )
-            qr.add_data(text.get("1.0", END))
+            qr.add_data(text)
             qr.make(fit=True)
 
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
@@ -48,7 +48,7 @@ def gerarQRCodeComBrasao(text):
 
         if salvar:
             qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4, )
-            qr.add_data(text.get("1.0", END))
+            qr.add_data(text)
             qr.make(fit=True)
 
             img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
@@ -73,7 +73,7 @@ def gerar(text, **kwargs):
     brasao = kwargs.get("brasao")
 
     qr = qrcode.QRCode(version=1, error_correction=qrcode.constants.ERROR_CORRECT_H, box_size=10, border=4, )
-    qr.add_data(text.get("1.0", END))
+    qr.add_data(text)
     qr.make(fit=True)
 
     img = qr.make_image(fill_color="black", back_color="white").convert('RGB')
