@@ -8,6 +8,7 @@ import myPastebin
 import depreciacao
 import arquivoCSV
 import arquivoJSON
+import setIcon
 
 import pyperclip
 
@@ -24,7 +25,7 @@ y = (screen_height / 2) - (janela_height / 2)
 
 root.resizable(False, False)
 root.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
-root.iconbitmap('icones/tools.ico')
+setIcon.icon(root, "tools.ico")
 root.title("SEPATools")
 
 menubar = Menu(root)
@@ -67,14 +68,19 @@ menubar.add_cascade(label="Padronizar", menu=menu_2)
 menu_3 = Menu(menubar, tearoff=0)
 
 menu_3.add_command(label="Abrir pastebin.com", command=lambda: misc.multithreading(myPastebin.abrir))
-menu_3.add_command(label="Criar JSON", command=lambda: misc.multithreading(arquivoJSON.criar_json(root, x, y, text)))
-menu_3.add_command(label="Salvar para um arquivo CSV",
-                   command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
-menu_3.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
-menu_3.add_command(label="Calculo de Depreciação",
-                   command=lambda: depreciacao.calcular(root, x, y))
+menu_3.add_command(label="Criar Pastebin", command=lambda: arquivoJSON.criar_json(root, x, y, text.get("1.0", "end")))
+menu_3.add_command(label="Salvar Credenciais", command=lambda: myPastebin.salvar_credenciais(root, x, y))
 
-menubar.add_cascade(label="Outros", menu=menu_3)
+menubar.add_cascade(label="Pastebin", menu=menu_3)
+
+menu_4 = Menu(menubar, tearoff=0)
+
+menu_4.add_command(label="Salvar para um arquivo CSV",
+                   command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
+menu_4.add_command(label="Abrir Comparador", command=lambda: comparador.comparar(root, x, y))
+menu_4.add_command(label="Calculo de Depreciação", command=lambda: depreciacao.calcular(root, x, y))
+
+menubar.add_cascade(label="Outros", menu=menu_4)
 
 root.config(menu=menubar)
 

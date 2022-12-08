@@ -2,6 +2,7 @@ from tkinter import Toplevel, END, Frame, LEFT, Text, Button, RIGHT, messagebox
 from io import StringIO
 import pandas as pd
 import misc
+import setIcon
 import arquivoCSV
 import filtrar
 
@@ -10,7 +11,7 @@ def comparar(root, x, y):
     comparador_janela = Toplevel(root)
     comparador_janela.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
     comparador_janela.resizable(False, False)
-    comparador_janela.iconbitmap("icones/compare.ico")
+    setIcon.icon(comparador_janela, "compare.ico")
     comparador_janela.title("Comparador")
 
     def filtro(text):

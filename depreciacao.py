@@ -3,6 +3,7 @@ import misc
 import pandas as pd
 from io import StringIO
 import pyperclip
+import setIcon
 
 resultado_tudo = ""
 resultado_patrimonio = ""
@@ -16,7 +17,7 @@ def calcular(root, x, y):
     calcular_janela = Toplevel(root)
     calcular_janela.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
     calcular_janela.resizable(False, False)
-    calcular_janela.iconbitmap("icones/depreciacao.ico")
+    setIcon.icon(calcular_janela, "depreciacao.ico")
     calcular_janela.title("Calcular Depreciação")
 
     def botoes_valores(text, valor):
