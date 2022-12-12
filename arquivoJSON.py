@@ -24,7 +24,7 @@ def criar_json(root, x, y, text):
             lista = text.split("\n")
 
             for linha in lista:
-                if linha is not "":
+                if linha != "":
                     novo_texto += linha + "\n"
 
             estrutura = {"nomeArquivo": nome_arquivo.get().upper(),

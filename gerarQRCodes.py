@@ -1,4 +1,4 @@
-from tkinter import END, messagebox, filedialog
+from tkinter import messagebox, filedialog
 import cv2
 import qrcode
 import os
