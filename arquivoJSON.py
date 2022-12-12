@@ -36,7 +36,7 @@ def criar_json(root, x, y, text):
 
             criar_json_janela.destroy()
 
-            myPastebin.paste(arquivo_json, root, x, y)
+            myPastebin.checar_qrcode(arquivo_json, root, x, y)
 
     frame1 = Frame(criar_json_janela)
     frame1.pack(fill=X)

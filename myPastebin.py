@@ -27,7 +27,7 @@ def abrir():
         messagebox.showerror("Erro", str(e))
 
 
-def paste(text, root, x, y):
+def checar_qrcode(text, root, x, y):
     try:
         if os.path.isfile("QRcode.jpeg"):
             data_criacao = os.path.getmtime("QRcode.jpeg")
@@ -46,28 +46,10 @@ def paste(text, root, x, y):
                 image = cv2.imread("QRcode.jpeg")
                 cv2.imshow("QR code", image)
                 cv2.waitKey(0)
-
             else:
-                if creds_arquivo.exists():
-                    with open(creds_arquivo) as js:
-                        creds = json.load(js)
-
-                    dev_key = creds["dev_key"]
-                    user_name = creds["user_name"]
-                    user_password = creds["user_password"]
-
-                    api_user_key = pastebin3.api_user_key(dev_key=dev_key, user_name=user_name,
-                                                          user_password=user_password)
-
-                    rs = pastebin3.paste(dev_key=dev_key, code=text, user_key=api_user_key, expire_date="10M",
-                                         private="public")
-
-                    new_url = "https://pastebin.com/raw/" + rs.replace("https://pastebin.com/", "")
-
-                    gerarQRCodes.gerar(new_url)
-
-                else:
-                    salvar_credenciais(root, x, y)
+                criar_paste(text, root, x, y)
+        else:
+            criar_paste(text, root, x, y)
     except Exception as e:
         messagebox.showerror("Erro", str(e))
 
@@ -137,3 +119,26 @@ def salvar_credenciais(root, x, y):
 
     button_salvar = Button(frame4, text="Salvar", width=10, height=1, command=salvar)
     button_salvar.pack(side=RIGHT, padx=5, pady=5)
+
+
+def criar_paste(text, root, x, y):
+    if creds_arquivo.exists():
+        with open(creds_arquivo) as js:
+            creds = json.load(js)
+
+        dev_key = creds["dev_key"]
+        user_name = creds["user_name"]
+        user_password = creds["user_password"]
+
+        api_user_key = pastebin3.api_user_key(dev_key=dev_key, user_name=user_name,
+                                              user_password=user_password)
+
+        rs = pastebin3.paste(dev_key=dev_key, code=text, user_key=api_user_key, expire_date="10M",
+                             private="public")
+
+        new_url = "https://pastebin.com/raw/" + rs.replace("https://pastebin.com/", "")
+
+        gerarQRCodes.gerar(new_url)
+
+    else:
+        salvar_credenciais(root, x, y)
