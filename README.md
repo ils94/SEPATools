@@ -21,82 +21,82 @@ Ferramenta necessaria para padronizar arquivos a serem usados com os aplicativos
 
 Logar no ASIWEB:
 
-![enter image description here](https://i.postimg.cc/59mSNQs6/1.png)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/1.png?raw=true)
 
 Patrimônio - Consulta Geral:
 
-![enter image description here](https://i.postimg.cc/NFb6NZK1/2.png)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/2.png?raw=true)
 
 Consulte a Unidade de Localização:
 
-[![3.png](https://i.postimg.cc/wjnhbXjb/3.png)](https://postimg.cc/hXbzX7x9)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/3.png?raw=true)
 
 Na proxima página, role até o final e clique em Relatórios:
 
-[![4.png](https://i.postimg.cc/B69BtTW1/4.png)](https://postimg.cc/Y4RWsmCp)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/4.png?raw=true)
 
 Na página de relatórios, escolha o tipo "PA0333" "Relação de Bens" e na parte para colocar o delimitador, é muito importante escolher a vírgula "," para a geração do documento. Clique em Gerar Relatório no final da pagina:
 
-[![5.png](https://i.postimg.cc/3JSj255h/5.png)](https://postimg.cc/F7SJQ6HC)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/5.png?raw=true)
 
 Aguarde o ASIWEB gerar o relatório, e em seguida clique no link do relatório gerado:
 
-[![6.png](https://i.postimg.cc/gJVqhxdt/6.png)](https://postimg.cc/S2KMFNnc)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/6.png?raw=true)
 
 Copie tudo da pagina aberta (utilize Ctrl + A para selecionar tudo):
 
-[![7.png](https://i.postimg.cc/fbXx4V3W/7.png)](https://postimg.cc/qtJtyMXW)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/7.png?raw=true)
 
 Abra o SEPATools e cole no campo de texto o texto copiado da pagina gerada pelo ASIWEB. Em seguida escolha no Menu Padronizar - Relação de bens, o tipo de filtro. Para uso em levantamento, utilizar o filtro "Matérial + Patrimônio":
 
-[![8.png](https://i.postimg.cc/HkB5rdh8/8.png)](https://postimg.cc/TK5hSMGT)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/8.png?raw=true)
 
 Resultado:
 
-[![9.png](https://i.postimg.cc/ZKKF9YQj/9.png)](https://postimg.cc/7bdTd4wT)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/9.png?raw=true)
 
 Depois, vá no Menu Outros e clique para salvar o arquivo CSV:
 
-[![10.png](https://i.postimg.cc/W1dGnWTk/10.png)](https://postimg.cc/xXSNjPkf)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/10.png?raw=true)
 
 # Utilizando no aplicativo:
 
 Abra o aplicativo e clique para abrir o Menu superior direito:
 
-[![1.jpg](https://i.postimg.cc/rwTJ8Ck0/1.jpg)](https://postimg.cc/kBj8sSDq)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/11.jpg?raw=true)
 
 Vá em "Arquivo..." :
 
-[![2.jpg](https://i.postimg.cc/25cFFsBh/2.jpg)](https://postimg.cc/cK3nd5hL)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/12.jpg?raw=true)
 
 "Abrir Arquivo" :
 
-[![3.jpg](https://i.postimg.cc/1z5rFm4y/3.jpg)](https://postimg.cc/182FhZpd)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/13.jpg?raw=true)
 
 Clique em "Sim" :
 
-[![4.jpg](https://i.postimg.cc/3xZZW48L/4.jpg)](https://postimg.cc/CRz8QKfD)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/14.jpg?raw=true)
 
 Procure pelo arquivo em seu Smartphone e quando acha-lo, clique no mesmo para abri-lo no aplicativo:
 
-[![5.jpg](https://i.postimg.cc/ZRWPfwrg/5.jpg)](https://postimg.cc/0MqJjdXd)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/15.jpg?raw=true)
 
 Clique no icone do Scanner para escanear um código de barras:
 
-[![6.jpg](https://i.postimg.cc/Y2mfYy2L/6.jpg)](https://postimg.cc/mhBHGjHT)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/16.jpg?raw=true)
 
 Ou insira o número patrimonial manualmente no "+":
 
-[![7.jpg](https://i.postimg.cc/V62q2XgN/7.jpg)](https://postimg.cc/gXqLZXf9)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/17.jpg?raw=true)
 
 Depois que o levantamento for concluído, vá em "Arquivo..." novamente:
 
-[![8.jpg](https://i.postimg.cc/gjRVprtH/8.jpg)](https://postimg.cc/ZvbBFYSW)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/18.jpg?raw=true)
 
 "Enviar Relatório Completo" :
 
-[![9.jpg](https://i.postimg.cc/bNxxFDtz/9.jpg)](https://postimg.cc/jLjnDjc9)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/19.jpg?raw=true)
 
 Digite um nome para o relatório, e clique em "ENVIAR".
 
-[![10.jpg](https://i.postimg.cc/jSRHVxHy/10.jpg)](https://postimg.cc/gnBX8PB0)
+![enter image description here](https://github.com/ils94/SEPATools/blob/master/imagens_tutorial/20.jpg?raw=true)
