@@ -31,7 +31,10 @@ def comparar(root, x, y):
             text.delete("1.0", END)
             text.insert("1.0", resultado)
         except Exception:
-            filtrar.termo_patrimonio(text)
+            if "PA0155" in text.get("1.0", END):
+                filtrar.selecao_bens_patrimonios(text)
+            else:
+                filtrar.termo_patrimonio(text)
 
     def comparar(texto1, texto2):
         text_relacao_3.delete("1.0", END)

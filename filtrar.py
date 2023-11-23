@@ -163,3 +163,65 @@ def termo_patrimonio(text):
         text.insert("1.0", resultado)
     except Exception as e:
         messagebox.showerror("Erro", str(e))
+
+
+def selecao_bens_patrimonios(text):
+    try:
+        # Read the CSV data from the text widget into a DataFrame
+        df = pd.read_csv(StringIO(text.get("1.0", END)), sep=",")
+
+        # Assuming "b" is the fourth column ("D")
+        df.iloc[:, 3] = df.iloc[:, 3].apply(lambda x: '{0:0>6}'.format(x) if isinstance(x, int) else x)
+
+        # Get the modified column "D" values, removing empty lines and "Patrimônio" string
+        df_column_d = df.iloc[:, 3].dropna().loc[lambda x: x != 'Patrimônio']
+
+        # Remove duplicates from the column
+        df_column_d = df_column_d.drop_duplicates()
+
+        # Convert the modified column to a CSV-formatted string without header
+        resultado = df_column_d.to_csv(header=None, index=False)
+
+        # Clean up string formatting
+        resultado = resultado.replace("\r", "")
+
+        # Clear the text widget and insert the result
+        text.delete("1.0", END)
+        text.insert("1.0", resultado)
+    except Exception as e:
+        messagebox.showerror("Erro", str(e))
+
+
+def selecao_bens_descricao_patrimonios(text):
+    try:
+        # Read the CSV data from the text widget into a DataFrame
+        df = pd.read_csv(StringIO(text.get("1.0", END)), sep=",")
+
+        # Assuming "b" is the fourth column ("D")
+        df.iloc[:, 3] = df.iloc[:, 3].apply(lambda x: '{0:0>6}'.format(x) if isinstance(x, int) else x)
+
+        # Get the modified column "D" values, removing empty lines and "Patrimônio" string
+        df_column_d = df.iloc[:, 3].dropna().loc[lambda x: x != 'Patrimônio']
+
+        # Remove duplicates from the column
+        df_column_d = df_column_d.drop_duplicates()
+
+        # Get column number 9, removing "Descrição" and empty lines
+        df_column_9 = df.iloc[:, 8].dropna().loc[lambda x: x != 'Descrição'].str.replace("\d+", "").str.replace(" - ",
+                                                                                                                "").str.replace(
+            ".", "").replace("-", "").str[:20]
+
+        # Convert both columns to a DataFrame for display
+        df_result = pd.concat([df_column_9, df_column_d], axis=1)
+
+        # Convert the modified columns to a CSV-formatted string without header
+        resultado = df_result.to_csv(header=None, index=False)
+
+        # Clean up string formatting
+        resultado = resultado.replace("\r", "")
+
+        # Clear the text widget and insert the result
+        text.delete("1.0", END)
+        text.insert("1.0", resultado)
+    except Exception as e:
+        messagebox.showerror("Erro", str(e))

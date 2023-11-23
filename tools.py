@@ -46,7 +46,7 @@ menubar.add_cascade(label="QR Code", menu=menu_1)
 menu_2 = Menu(menubar, tearoff=0)
 
 sub_menu = Menu(menu_2, tearoff=False)
-sub_menu.add_command(label="Apenas patrimônio",
+sub_menu.add_command(label="Apenas Patrimônio",
                      command=lambda: misc.multithreading(lambda: filtrar.apenas_patrimonio(text)))
 sub_menu.add_command(label="Material + Patrimônio",
                      command=lambda: misc.multithreading(lambda: filtrar.material_patrimonio(text)))
@@ -58,10 +58,18 @@ menu_2.add_cascade(label="Relação de bens", menu=sub_menu)
 sub_menu = Menu(menu_2, tearoff=False)
 sub_menu.add_command(label="Material + Patrimônio",
                      command=lambda: misc.multithreading(lambda: filtrar.termo_descricao_patrimonio(text)))
-sub_menu.add_command(label="Somente patrimônios",
+sub_menu.add_command(label="Apenas Patrimônio",
                      command=lambda: misc.multithreading(lambda: filtrar.termo_patrimonio(text)))
 
 menu_2.add_cascade(label="Termo de Saída", menu=sub_menu)
+
+sub_menu = Menu(menu_2, tearoff=False)
+sub_menu.add_command(label="Apenas Patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.selecao_bens_patrimonios(text)))
+sub_menu.add_command(label="Material + Patrimônio",
+                     command=lambda: misc.multithreading(lambda: filtrar.selecao_bens_descricao_patrimonios(text)))
+
+menu_2.add_cascade(label="Seleção de Bens", menu=sub_menu)
 
 menubar.add_cascade(label="Padronizar", menu=menu_2)
 
