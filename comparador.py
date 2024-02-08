@@ -5,14 +5,16 @@ import misc
 import setIcon
 import arquivoCSV
 import filtrar
+import centralizarJanelas
 
 
-def comparar(root, x, y):
-    comparador_janela = Toplevel(root)
-    comparador_janela.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
-    comparador_janela.resizable(False, False)
-    setIcon.icon(comparador_janela, "compare.ico")
-    comparador_janela.title("Comparador")
+def comparar():
+    toplevel = Toplevel()
+    toplevel.geometry("500x500")
+    toplevel.resizable(False, False)
+    setIcon.icon(toplevel, "compare.ico")
+    toplevel.title("Comparador")
+    centralizarJanelas.center_window(toplevel, 500, 500)
 
     def filtro(text):
         try:
@@ -50,7 +52,7 @@ def comparar(root, x, y):
         for element in missing:
             text_relacao_3.insert("1.0", element + "\n")
 
-    frame_1 = Frame(comparador_janela)
+    frame_1 = Frame(toplevel)
     frame_1.pack(side=LEFT, padx=1)
 
     text_relacao_1 = Text(frame_1, width=20, height=28)
@@ -60,7 +62,7 @@ def comparar(root, x, y):
                              command=lambda: filtro(text_relacao_1))
     button_limpar_1.pack(side=LEFT, pady=5)
 
-    frame_2 = Frame(comparador_janela)
+    frame_2 = Frame(toplevel)
     frame_2.pack(side=LEFT, padx=1)
 
     text_relacao_2 = Text(frame_2, width=20, height=28)
@@ -70,7 +72,7 @@ def comparar(root, x, y):
                              command=lambda: filtro(text_relacao_2))
     button_limpar_2.pack(side=LEFT, pady=5)
 
-    frame_3 = Frame(comparador_janela)
+    frame_3 = Frame(toplevel)
     frame_3.pack(side=LEFT, padx=1)
 
     text_relacao_3 = Text(frame_3, width=20, height=28)
@@ -83,5 +85,3 @@ def comparar(root, x, y):
     salvar_csv_button = Button(frame_3, text="Para CSV", width=10, height=2,
                                command=lambda: misc.multithreading(arquivoCSV.salvar(text_relacao_3.get("1.0", END))))
     salvar_csv_button.pack(side=RIGHT, pady=5)
-
-    comparador_janela.mainloop()

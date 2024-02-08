@@ -9,6 +9,7 @@ import setIcon
 import cv2
 import time
 import datetime
+import centralizarJanelas
 
 user_home = "Z:/" + str(os.getlogin())
 
@@ -27,7 +28,7 @@ def abrir():
         messagebox.showerror("Erro", str(e))
 
 
-def checar_qrcode(text, root, x, y):
+def checar_qrcode(text):
     try:
         if os.path.isfile("QRcode.jpeg"):
             data_criacao = os.path.getmtime("QRcode.jpeg")
@@ -47,20 +48,21 @@ def checar_qrcode(text, root, x, y):
                 cv2.imshow("QR code", image)
                 cv2.waitKey(0)
             else:
-                criar_paste(text, root, x, y)
+                criar_paste(text)
         else:
-            criar_paste(text, root, x, y)
+            criar_paste(text)
     except Exception as e:
         messagebox.showerror("Erro", str(e))
 
 
-def salvar_credenciais(root, x, y):
-    salvar_credenciais_janela = Toplevel(root)
-    salvar_credenciais_janela.geometry("300x130+" + str(int(x)) + "+" + str(int(y)))
-    salvar_credenciais_janela.resizable(False, False)
-    salvar_credenciais_janela.attributes("-topmost", True)
-    setIcon.icon(salvar_credenciais_janela, "cadeado.ico")
-    salvar_credenciais_janela.title("Salvar Credenciais")
+def salvar_credenciais():
+    toplevel = Toplevel()
+    toplevel.geometry("300x130")
+    toplevel.resizable(False, False)
+    toplevel.attributes("-topmost", True)
+    setIcon.icon(toplevel, "cadeado.ico")
+    toplevel.title("Salvar Credenciais")
+    centralizarJanelas.center_window(toplevel, 300, 130)
 
     def salvar():
         try:
@@ -82,12 +84,12 @@ def salvar_credenciais(root, x, y):
 
                 messagebox.showinfo("Salvo", "As credenciais foram salvas com sucesso.")
 
-                salvar_credenciais_janela.destroy()
+                toplevel.destroy()
 
         except Exception as e:
             messagebox.showerror("Erro", str(e))
 
-    frame1 = Frame(salvar_credenciais_janela)
+    frame1 = Frame(toplevel)
     frame1.pack(fill=X)
 
     label_dev_key = Label(frame1, text="Dev Key:", width=8, height=1, anchor=W)
@@ -96,7 +98,7 @@ def salvar_credenciais(root, x, y):
     entry_dev_key = Entry(frame1, width=35)
     entry_dev_key.pack(side=LEFT, padx=1, pady=5)
 
-    frame2 = Frame(salvar_credenciais_janela)
+    frame2 = Frame(toplevel)
     frame2.pack(fill=X)
 
     label_user_name = Label(frame2, text="Usuário:", width=8, height=1, anchor=W)
@@ -105,7 +107,7 @@ def salvar_credenciais(root, x, y):
     entry_user_name = Entry(frame2, width=35)
     entry_user_name.pack(side=LEFT, padx=1, pady=5)
 
-    frame3 = Frame(salvar_credenciais_janela)
+    frame3 = Frame(toplevel)
     frame3.pack(fill=X)
 
     label_user_password = Label(frame3, text="Senha:", width=8, height=1, anchor=W)
@@ -114,14 +116,14 @@ def salvar_credenciais(root, x, y):
     entry_user_password = Entry(frame3, width=35, show="*")
     entry_user_password.pack(side=LEFT, padx=1, pady=5)
 
-    frame4 = Frame(salvar_credenciais_janela)
+    frame4 = Frame(toplevel)
     frame4.pack(fill=X)
 
     button_salvar = Button(frame4, text="Salvar", width=10, height=1, command=salvar)
     button_salvar.pack(side=RIGHT, padx=5, pady=5)
 
 
-def criar_paste(text, root, x, y):
+def criar_paste(text):
     if creds_arquivo.exists():
         with open(creds_arquivo) as js:
             creds = json.load(js)
@@ -141,4 +143,4 @@ def criar_paste(text, root, x, y):
         gerarQRCodes.gerar(new_url)
 
     else:
-        salvar_credenciais(root, x, y)
+        salvar_credenciais()

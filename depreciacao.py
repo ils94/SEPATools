@@ -4,6 +4,7 @@ import pandas as pd
 from io import StringIO
 import pyperclip
 import setIcon
+import centralizarJanelas
 
 resultado_tudo = ""
 resultado_patrimonio = ""
@@ -13,12 +14,13 @@ resultado_achados = ""
 resultado_patrimonio_valores = ""
 
 
-def calcular(root, x, y):
-    calcular_janela = Toplevel(root)
-    calcular_janela.geometry("500x500+" + str(int(x)) + "+" + str(int(y)))
-    calcular_janela.resizable(False, False)
-    setIcon.icon(calcular_janela, "depreciacao.ico")
-    calcular_janela.title("Calcular Depreciação")
+def calcular():
+    toplevel = Toplevel()
+    toplevel.geometry("500x500")
+    toplevel.resizable(False, False)
+    setIcon.icon(toplevel, "depreciacao.ico")
+    toplevel.title("Calcular Depreciação")
+    centralizarJanelas.center_window(toplevel, 500, 500)
 
     def botoes_valores(text, valor):
         text.delete("1.0", "end")
@@ -148,19 +150,19 @@ def calcular(root, x, y):
         except Exception as e:
             messagebox.showerror("Erro em Iniciar", str(e))
 
-    frame1 = Frame(calcular_janela)
+    frame1 = Frame(toplevel)
     frame1.pack(fill=X, pady=2)
 
     entry_lista_1 = Text(frame1, height=1)
     entry_lista_1.pack(side=LEFT, padx=5)
 
-    frame2 = Frame(calcular_janela)
+    frame2 = Frame(toplevel)
     frame2.pack(fill=X, pady=2)
 
     entry_lista_2 = Text(frame2, height=1)
     entry_lista_2.pack(side=LEFT, padx=5)
 
-    frame3 = Frame(calcular_janela)
+    frame3 = Frame(toplevel)
     frame3.pack(fill=X, pady=2, padx=3)
 
     tudo = Button(frame3, text="Tudo", height=1, width=5,
@@ -182,7 +184,7 @@ def calcular(root, x, y):
                              command=lambda: misc.multithreading(iniciar()))
     button_calcular.pack(side=RIGHT, padx=2)
 
-    frame4 = Frame(calcular_janela)
+    frame4 = Frame(toplevel)
     frame4.pack()
 
     resultado_text = Text(frame4, height=24, width=58)
@@ -193,11 +195,9 @@ def calcular(root, x, y):
 
     resultado_text.configure(yscrollcommand=text_scrollbar.set)
 
-    copiar = Button(calcular_janela, text="Copiar", height=1, width=10,
+    copiar = Button(toplevel, text="Copiar", height=1, width=10,
                     command=lambda: pyperclip.copy(resultado_text.get("1.0", "end")))
     copiar.pack(side=LEFT, pady=2, padx=5)
 
     entry_lista_1.insert(END, "Primeiro mês")
     entry_lista_2.insert(END, "Segundo mês")
-
-    calcular_janela.mainloop()
