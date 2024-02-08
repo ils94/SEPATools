@@ -11,17 +11,9 @@ import arquivoJSON
 import setIcon
 import pyperclip
 import centralizarJanelas
+import numerosDuplicados
 
 root = Tk()
-
-janela_width = 500
-janela_height = 500
-
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-
-x = (screen_width / 2) - (janela_width / 2)
-y = (screen_height / 2) - (janela_height / 2)
 
 root.resizable(False, False)
 root.geometry("500x500")
@@ -87,6 +79,7 @@ menu_4.add_command(label="Salvar para um arquivo CSV",
                    command=lambda: misc.multithreading(arquivoCSV.salvar(text.get("1.0", END))))
 menu_4.add_command(label="Abrir Comparador", command=comparador.comparar)
 menu_4.add_command(label="Calculo de Depreciação", command=depreciacao.calcular)
+menu_4.add_command(label="Números Duplicados", command=numerosDuplicados.mostrarDuplicados)
 
 menubar.add_cascade(label="Outros", menu=menu_4)
 
