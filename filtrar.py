@@ -28,10 +28,9 @@ def material_patrimonio(text):
         Stringio = StringIO(text.get("1.0", END))
 
         df = pd.read_csv(Stringio, sep=",")
+
         df.sort_values(by=["Patrimônio"], inplace=True)
-        df["Material"] = df["Material"].str.replace("\d+", "").str.replace(" - ", "").str.replace(".",
-                                                                                                  "").replace(
-            "-", "").str[:30]
+        df["Material"] = df["Material"].apply(lambda x: ''.join(filter(lambda i: not i.isdigit(), x))).str.replace(" - ", "").str.replace(".", "").replace("-", "").str.strip().str[:30]
         df["Patrimônio"] = df["Patrimônio"].apply(lambda x: '{0:0>6}'.format(x))
 
         df1 = df[["Material", "Patrimônio"]]
